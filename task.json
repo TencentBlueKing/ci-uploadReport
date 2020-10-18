@@ -1,0 +1,108 @@
+{
+  "atomCode": "uploadReport",
+  "execution": {
+    "packagePath": "uploadReport-jar-with-dependencies.jar",
+    "language": "java",
+    "minimumVersion": "1.8",
+    "demands": [],
+    "target": "$bk_java_path -jar uploadReport-jar-with-dependencies.jar -Dfile.encoding=utf8"
+  },
+  "input": {
+    "fileDir": {
+      "label": "待展示的产出物报告路径（该路径下所有子文件均会被归档）",
+      "default": "",
+      "placeholder": "./report/",
+      "type": "vuex-input",
+      "desc": " 目前支持html文件的自动渲染  ",
+      "required": true,
+      "disabled": false,
+      "hidden": false,
+      "isSensitive": false
+    },
+    "indexFile": {
+      "label": "入口文件",
+      "default": "",
+      "placeholder": "index.html",
+      "type": "vuex-input",
+      "desc": " 目前支持html文件的自动渲染  ",
+      "required": true,
+      "disabled": false,
+      "hidden": false,
+      "isSensitive": false
+    },
+    "indexFileCharset": {
+      "label": "入口文件编码",
+      "default": "UTF-8",
+      "placeholder": "UTF-8",
+      "type": "selector",
+      "desc": "入口文件编码",
+      "required": false,
+      "disabled": false,
+      "hidden": false,
+      "isSensitive": false,
+      "options": [
+        {
+          "id": "UTF-8",
+          "name": "UTF-8"
+        },
+        {
+          "id": "Big5",
+          "name": "Big5"
+        },
+        {
+          "id": "GB2312",
+          "name": "GB2312"
+        },
+        {
+          "id": "GBK",
+          "name": "GBK"
+        },
+        {
+          "id": "UTF-16",
+          "name": "UTF-16"
+        },
+        {
+          "id": "UTF-16BE",
+          "name": "UTF-16BE"
+        },
+        {
+          "id": "UTF-16LE",
+          "name": "UTF-16LE"
+        },
+        {
+          "id": "ISO-8859-1",
+          "name": "ISO-8859-1"
+        },
+        {
+          "id": "US-ASCII",
+          "name": "US-ASCII"
+        },
+        {
+          "id": "default",
+          "name": "系统默认编码"
+        }
+      ]
+    },
+    "reportName": {
+      "label": "标签别名",
+      "default": "",
+      "placeholder": "请输入自定义报告名称",
+      "type": "vuex-input",
+      "desc": " 目前支持html文件的自动渲染  ",
+      "required": true,
+      "disabled": false,
+      "hidden": false,
+      "isSensitive": false
+    },
+    "isParallel": {
+      "text": "启用并行上传",
+      "default": false,
+      "type": "atom-checkbox",
+      "required": false,
+      "disabled": false,
+      "hidden": false,
+      "isSensitive": false
+    }
+  }
+}
+
