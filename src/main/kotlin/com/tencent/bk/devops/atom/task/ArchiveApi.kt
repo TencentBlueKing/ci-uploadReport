@@ -7,7 +7,7 @@ import com.tencent.bk.devops.atom.exception.AtomException
 import com.tencent.bk.devops.atom.pojo.AtomBaseParam
 import com.tencent.bk.devops.atom.pojo.Result
 import com.tencent.bk.devops.atom.task.JsonUtils.objectMapper
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.slf4j.LoggerFactory
@@ -19,7 +19,7 @@ class ArchiveApi : BaseApi() {
     fun uploadBkRepoReportFile(file: File, elementId: String, relativePath: String, atomBaseParam: AtomBaseParam) {
         val request = atomHttpClient.buildAtomPut(
             "/bkrepo/api/build/generic/${atomBaseParam.projectName}/report/${atomBaseParam.pipelineId}/${atomBaseParam.pipelineBuildId}/$elementId/${relativePath.removePrefix("/")}",
-            RequestBody.create(MediaType.parse("application/octet-stream"), file),
+            RequestBody.create("application/octet-stream".toMediaType(), file),
             getBkRepoUploadHeader(file, atomBaseParam)
         )
         uploadFile(request)
@@ -41,7 +41,7 @@ class ArchiveApi : BaseApi() {
         val bkrepoPath = (destPath.removeSuffix("/") + "/" + file.name).removePrefix("/").removePrefix("./")
         val request = atomHttpClient.buildAtomPut(
             "/bkrepo/api/build/generic/${atomBaseParam.projectName}/custom/$bkrepoPath",
-            RequestBody.create(MediaType.parse("application/octet-stream"), file),
+            RequestBody.create("application/octet-stream".toMediaType(), file),
             getBkRepoUploadHeader(file, atomBaseParam)
         )
         uploadFile(request)
@@ -50,7 +50,7 @@ class ArchiveApi : BaseApi() {
     fun uploadBkRepoPipelineFile(file: File, atomBaseParam: AtomBaseParam) {
         val request = buildPut(
             "/bkrepo/api/build/generic/${atomBaseParam.projectName}/pipeline/${atomBaseParam.pipelineId}/${atomBaseParam.pipelineBuildId}/${file.name}",
-            RequestBody.create(MediaType.parse("application/octet-stream"), file),
+            RequestBody.create("application/octet-stream".toMediaType(), file),
             getBkRepoUploadHeader(file, atomBaseParam)
         )
         uploadFile(request)
@@ -60,7 +60,7 @@ class ArchiveApi : BaseApi() {
         try {
             val response = atomHttpClient.doRequest(request)
             if (!response.isSuccessful) {
-                logger.error("upload file failed, code: ${response.code()}, responseContent: ${response.body()!!.string()}")
+                logger.error("upload file failed, code: ${response.code}, responseContent: ${response.body!!.string()}")
                 throw AtomException("upload file failed")
             }
         } catch (e: Exception) {
