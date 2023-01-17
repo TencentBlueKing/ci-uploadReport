@@ -8,6 +8,7 @@ import com.tencent.bk.devops.atom.pojo.AtomBaseParam
 import com.tencent.bk.devops.atom.pojo.Result
 import com.tencent.bk.devops.atom.task.JsonUtils.objectMapper
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.Request
 import okhttp3.RequestBody
 import org.slf4j.LoggerFactory
@@ -25,9 +26,25 @@ class ArchiveApi : BaseApi() {
         uploadFile(request)
     }
 
-    fun create(elementId: String, indexFile: String, name: String, reportType: String? = ReportTypeEnum.INTERNAL.name): Result<Boolean> {
-        val path = "/process/api/build/reports/$elementId?indexFile=${encode(indexFile)}&name=${encode(name)}&reportType=$reportType"
-        val responseContent = request(buildPost(path), "创建报告失败")
+    fun create(
+        elementId: String,
+        indexFile: String,
+        name: String,
+        reportType: String? = ReportTypeEnum.INTERNAL.name,
+        reportEmail: ReportEmail? = null
+    ): Result<Boolean> {
+        val path =
+            "/process/api/build/reports/$elementId?indexFile=${encode(indexFile)}&name=${encode(name)}&reportType=$reportType"
+        val request = if (reportEmail == null) {
+            buildPost(path)
+        } else {
+            val requestBody = RequestBody.create(
+                "application/json; charset=utf-8".toMediaTypeOrNull(),
+                objectMapper.writeValueAsString(reportEmail)
+            )
+            buildPost(path, requestBody, Maps.newHashMap())
+        }
+        val responseContent = request(request, "创建报告失败")
         return objectMapper.readValue(responseContent)
     }
 

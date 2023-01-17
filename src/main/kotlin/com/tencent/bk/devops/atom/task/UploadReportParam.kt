@@ -12,4 +12,7 @@ class UploadReportParam : AtomBaseParam() {
     var indexFile: String = ""
     var fileDir: String = ""
     var indexFileCharset: String = ""
+    var isSendEmail: Boolean = false
+    var body: String? = null
+    var receivers: String? = null
 }

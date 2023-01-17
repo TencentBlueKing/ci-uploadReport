@@ -5,12 +5,14 @@ import com.tencent.bk.devops.atom.exception.AtomException
 import com.tencent.bk.devops.atom.pojo.StringData
 import com.tencent.bk.devops.atom.spi.AtomService
 import com.tencent.bk.devops.atom.spi.TaskAtom
+import com.tencent.bk.devops.plugin.utils.JsonUtil
 import org.slf4j.LoggerFactory
 import java.io.File
 import java.nio.charset.Charset
 import java.nio.file.Paths
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import java.util.regex.Pattern
 
 @AtomService(paramClass = UploadReportParam::class)
 class UploadReportAtom : TaskAtom<UploadReportParam> {
@@ -88,7 +90,25 @@ class UploadReportAtom : TaskAtom<UploadReportParam> {
         }
         println("report upload done")
 
-        archiveApi.create(elementId, indexFileParam, reportName)
+        val enableEmail = atomParam.isSendEmail
+        val emailReceivers = atomParam.receivers
+        val emailTitle = atomParam.body
+        var reportEmail: ReportEmail? = null
+        if (enableEmail && !emailReceivers.isNullOrBlank() && emailTitle != null) {
+            val receivers = try {
+                JsonUtil.to<List<String>>(emailReceivers).toSet()
+            } catch (t: Throwable) { // 旧引擎做法是用x,y,z 传递
+                regex.split(emailReceivers).toSet()
+            }
+            reportEmail = if (indexFileEmailContent.length > EMAIL_BODY_LIMIT) {
+                logger.warn("Email content size exceeds 10M. Failed to send email")
+                null
+            } else {
+                ReportEmail(receivers, emailTitle, indexFileEmailContent)
+            }
+        }
+
+        archiveApi.create(elementId, indexFileParam, reportName, reportEmail = reportEmail)
 
         val reportRootUrlData = StringData(reportRootUrl)
         logger.info("$REPORT_DYNAMIC_ROOT_URL is :{}", com.tencent.bk.devops.atom.utils.json.JsonUtil.toJson(reportRootUrlData))
@@ -158,6 +178,9 @@ class UploadReportAtom : TaskAtom<UploadReportParam> {
         private val FIlTER_FILE = listOf(".md5", ".sha1", ".sha256", ".ds_store")
         private const val MAX_FILE_COUNT = 10000
         private const val UPLOAD_THREAD_COUNT = 10
+        private const val EMAIL_BODY_LIMIT = 10 * 1024 * 1024
+
+        private val regex = Pattern.compile("[,;]")
         var archiveApi = ArchiveApi()
     }
 }

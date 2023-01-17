@@ -102,6 +102,53 @@
       "disabled": false,
       "hidden": false,
       "isSensitive": false
+    },
+    "isSendEmail": {
+      "text": "启用邮件通知",
+      "default": true,
+      "type": "atom-checkbox",
+      "required": false,
+      "disabled": false,
+      "hidden": false,
+      "isSensitive": false,
+      "desc": "邮件内容大小限制为10M"
+    },
+    "receivers": {
+      "label": "收件人，支持邮件组",
+      "default": "",
+      "type": "user-input",
+      "inputType": "all",
+      "required": true,
+      "disabled": false,
+      "hidden": false,
+      "isSensitive": false,
+      "rely": {
+        "operation": "AND",
+        "expression": [
+          {
+            "key": "isSendEmail",
+            "value": true
+          }
+        ]
+      }
+    },
+    "body": {
+      "label": "邮件主题",
+      "default": "【${pipeline.name}】  #${pipeline.build.num} 自定义报告已归档",
+      "type": "vuex-input",
+      "required": true,
+      "disabled": false,
+      "hidden": false,
+      "isSensitive": false,
+      "rely": {
+        "operation": "AND",
+        "expression": [
+          {
+            "key": "isSendEmail",
+            "value": true
+          }
+        ]
+      }
     }
   }
 }
