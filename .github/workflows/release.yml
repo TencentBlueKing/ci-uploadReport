@@ -47,7 +47,7 @@ jobs:
           release_name: ${{ github.ref }}
           draft: true
           prerelease: true
-      - name: Upload Release Asset
+      - name: Upload ZH_CN Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
@@ -55,4 +55,13 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./target/${{ env.FILENAME }}.zip
           asset_name: ${{ env.FILENAME }}.zip
+          asset_content_type: application/zip
+      - name: Upload EN Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./target/${{ env.FILENAME }}_en.zip
+          asset_name: ${{ env.FILENAME }}_en.zip
           asset_content_type: application/zip

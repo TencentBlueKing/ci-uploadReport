@@ -9,33 +9,33 @@
   },
   "input": {
     "fileDir": {
-      "label": "待展示的产出物报告路径（该路径下所有子文件均会被归档）",
+      "label": "Output report path to be displayed (all sub-files under this path will be archived)",
       "default": "",
       "placeholder": "./report/",
       "type": "vuex-input",
-      "desc": " 目前支持html文件的自动渲染  ",
+      "desc": " Support automatic rendering of html files ",
       "required": true,
       "disabled": false,
       "hidden": false,
       "isSensitive": false
     },
     "indexFile": {
-      "label": "入口文件",
+      "label": "entry file",
       "default": "",
       "placeholder": "index.html",
       "type": "vuex-input",
-      "desc": " 目前支持html文件的自动渲染  ",
+      "desc": " Support automatic rendering of html files  ",
       "required": true,
       "disabled": false,
       "hidden": false,
       "isSensitive": false
     },
     "indexFileCharset": {
-      "label": "入口文件编码",
+      "label": "Entry file encoding",
       "default": "UTF-8",
       "placeholder": "UTF-8",
       "type": "selector",
-      "desc": "入口文件编码",
+      "desc": "Entry file encoding",
       "required": false,
       "disabled": false,
       "hidden": false,
@@ -79,23 +79,23 @@
         },
         {
           "id": "default",
-          "name": "系统默认编码"
+          "name": "System default encoding"
         }
       ]
     },
     "reportName": {
-      "label": "标签别名",
+      "label": "label alias",
       "default": "",
-      "placeholder": "请输入自定义报告名称",
+      "placeholder": "Please enter a custom report name",
       "type": "vuex-input",
-      "desc": " 目前支持html文件的自动渲染  ",
+      "desc": " Support automatic rendering of html files  ",
       "required": true,
       "disabled": false,
       "hidden": false,
       "isSensitive": false
     },
     "isParallel": {
-      "text": "启用并行上传",
+      "text": "Enable parallel upload",
       "default": false,
       "type": "atom-checkbox",
       "required": false,
@@ -104,17 +104,17 @@
       "isSensitive": false
     },
     "isSendEmail": {
-      "text": "启用邮件通知",
+      "text": "Enable email notification",
       "default": true,
       "type": "atom-checkbox",
       "required": false,
       "disabled": false,
       "hidden": false,
       "isSensitive": false,
-      "desc": "邮件内容大小限制为10M"
+      "desc": "The length of the mail content is limited to 10MB"
     },
     "receivers": {
-      "label": "收件人，支持邮件组",
+      "label": "Receivers, support the email group",
       "default": "",
       "type": "user-input",
       "inputType": "all",
@@ -133,8 +133,8 @@
       }
     },
     "body": {
-      "label": "邮件主题",
-      "default": "【${pipeline.name}】  #${pipeline.build.num} 自定义报告已归档",
+      "label": "Email Subject",
+      "default": "【${pipeline.name}】  #${pipeline.build.num} The custom report has been archived",
       "type": "vuex-input",
       "required": true,
       "disabled": false,
@@ -153,7 +153,7 @@
   },
   "releaseInfo": {
     "projectId": "Demo",
-    "name": "归档报告",
+    "name": "uploadReport",
     "language": "java",
     "logoUrl": "${{indexFile(\"uploadReport.png\")}}",
     "category": "TASK",
@@ -166,7 +166,7 @@
     ],
     "labelCodes": [
     ],
-    "summary": "可将构建机上的html报告归档，同时发送邮件出来",
+    "summary": "Archive the report files in the specified directory of the builder, and send email notifications at the same time.",
     "description": "${{indexFile(\"README.md\")}}",
     "configInfo": {
       "frontendType": "NORMAL"
