@@ -152,7 +152,7 @@
     }
   },
   "releaseInfo": {
-    "projectId": "Demo",
+    "projectId": "demo",
     "name": "归档报告",
     "language": "java",
     "logoUrl": "${{indexFile(\"uploadReport.png\")}}",

@@ -152,8 +152,8 @@
     }
   },
   "releaseInfo": {
-    "projectId": "Demo",
-    "name": "uploadReport",
+    "projectId": "demo",
+    "name": "UploadReport",
     "language": "java",
     "logoUrl": "${{indexFile(\"uploadReport.png\")}}",
     "category": "TASK",
