@@ -11,7 +11,7 @@
     <properties>
         <kotlin.version>1.3.30</kotlin.version>
         <!-- 引用的sdk版本，当sdk版本有升级时再修改 -->
-        <sdk.version>1.1.3</sdk.version>
+        <sdk.version>1.1.8</sdk.version>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -25,16 +25,16 @@
             <artifactId>java-plugin-sdk</artifactId>
             <version>${sdk.version}</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.datatype</groupId>-->
-<!--            <artifactId>jackson-datatype-jdk8</artifactId>-->
-<!--            <version>${lib.jackson.version}</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.fasterxml.jackson.datatype</groupId>-->
-<!--            <artifactId>jackson-datatype-jsr310</artifactId>-->
-<!--            <version>${lib.jackson.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.tencent.bk.repo</groupId>
+            <artifactId>api-repository</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.tencent.bk.repo</groupId>
+            <artifactId>api-generic</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -104,6 +104,7 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <jvmTarget>1.8</jvmTarget>
                             <sourceDirs>
                                 <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
                             </sourceDirs>
@@ -125,12 +126,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>github</id>
-            <name>java sdk plugin github Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/ci-plugins/java-sdk-plugin</url>
-        </repository>
-    </repositories>
 </project>

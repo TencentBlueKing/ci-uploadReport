@@ -88,6 +88,12 @@ class UploadReportAtom : TaskAtom<UploadReportParam> {
                 logger.info("$relativePath uploaded")
             }
         }
+
+        archiveApi.setIndexFileMetadata(
+            reportName = reportName,
+            indexFileName = fileDirPath.relativize(Paths.get(indexFile.absolutePath)).toString(),
+            atomBaseParam = atomParam
+        )
         println("report upload done")
 
         val enableEmail = atomParam.isSendEmail
