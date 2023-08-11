@@ -20,7 +20,7 @@
       "isSensitive": false
     },
     "indexFile": {
-      "label": "entry file",
+      "label": "index file",
       "default": "",
       "placeholder": "index.html",
       "type": "vuex-input",
@@ -31,11 +31,11 @@
       "isSensitive": false
     },
     "indexFileCharset": {
-      "label": "Entry file encoding",
+      "label": "Index file encoding",
       "default": "UTF-8",
       "placeholder": "UTF-8",
       "type": "selector",
-      "desc": "Entry file encoding",
+      "desc": "Index file encoding",
       "required": false,
       "disabled": false,
       "hidden": false,
