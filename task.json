@@ -13,7 +13,7 @@
       "default": "",
       "placeholder": "./report/",
       "type": "vuex-input",
-      "desc": " 目前支持html文件的自动渲染  ",
+      "desc": " 目前支持HTML文件的自动渲染  ",
       "required": true,
       "disabled": false,
       "hidden": false,
@@ -24,7 +24,7 @@
       "default": "",
       "placeholder": "index.html",
       "type": "vuex-input",
-      "desc": " 目前支持html文件的自动渲染  ",
+      "desc": " 目前支持HTML文件的自动渲染  ",
       "required": true,
       "disabled": false,
       "hidden": false,
@@ -88,7 +88,7 @@
       "default": "",
       "placeholder": "请输入自定义报告名称",
       "type": "vuex-input",
-      "desc": " 目前支持html文件的自动渲染  ",
+      "desc": " 目前支持HTML文件的自动渲染  ",
       "required": true,
       "disabled": false,
       "hidden": false,
@@ -172,7 +172,7 @@
       "frontendType": "NORMAL"
     },
     "versionInfo": {
-      "publisher": "Blueking",
+      "publisher": "BlueKing",
       "releaseType": "NEW",
       "version": "1.0.0",
       "versionContent": "init"
