@@ -34,7 +34,7 @@ import java.util.concurrent.TimeUnit
 class ArchiveApi : BaseApi() {
     private val atomHttpClient = AtomHttpClient()
     private val fileGateway: String by lazy { SdkEnv.getFileGateway() }
-    private val tokenRequest: Boolean by lazy { fileGateway.isNotBlank() }
+    private val tokenRequest: Boolean by lazy { fileGateway.isNotBlank() && fileGateway.contains("bkrepo")}
     private var createFlag: Boolean = false
     private var token: String = ""
 
@@ -144,7 +144,7 @@ class ArchiveApi : BaseApi() {
     }
 
     private fun createProjectOrRepoIfNotExist(userId: String, projectId: String) {
-        if (createFlag) {
+        if (createFlag || !tokenRequest) {
             return
         }
         createProject(userId, projectId)
@@ -159,6 +159,7 @@ class ArchiveApi : BaseApi() {
             projectCreateRequest.toJsonString().toRequestBody(MediaTypes.APPLICATION_JSON.toMediaType()),
             buildBaseHeaders(userId)
         )
+        logger.debug("createProject url: ${request.url}")
         val (status, response) = doRequest(request)
         if (status == 200) {
             return
