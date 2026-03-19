@@ -14,15 +14,14 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
-          java-version: '8.0.181'
-          java-package: jdk
-          architecture: x64
+          java-version: '8'
+          distribution: 'temurin'
       - name: Set up Maven
-        uses: stCarolas/setup-maven@v.4.5
+        uses: stCarolas/setup-maven@v5
         with:
           maven-version: 3.6.1
       - name: Change Maven Settings
@@ -32,36 +31,18 @@ jobs:
       - name: Build
         run: mvn clean package
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.FILENAME }}.zip
           # A file, directory or wildcard pattern that describes what to upload
           path: ./target/${{ env.FILENAME }}.zip
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
+      - name: Create Release and Upload Assets
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
           draft: true
           prerelease: true
-      - name: Upload ZH_CN Release Asset
-        uses: actions/upload-release-asset@v1
+          files: |
+            ./target/${{ env.FILENAME }}.zip
+            ./target/${{ env.FILENAME }}_en.zip
         env:
           GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./target/${{ env.FILENAME }}.zip
-          asset_name: ${{ env.FILENAME }}.zip
-          asset_content_type: application/zip
-      - name: Upload EN Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.CI_GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./target/${{ env.FILENAME }}_en.zip
-          asset_name: ${{ env.FILENAME }}_en.zip
-          asset_content_type: application/zip
